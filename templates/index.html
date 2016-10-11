@@ -5,4 +5,14 @@
 <p>We have <b>{{ beers_count }}</b> beers in our db,
   <br/>brewed at <b>{{ breweries_count }}</b> breweries all over the world!</p>
 
+<form action="#" method="POST" class="form">
+  {% csrf_token %}
+  <select name="style_id">
+    {% for entry in styles %}
+    <option value="{{ entry.id }}">{{ entry.name }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit" class="btn btn-primary">Go!</button>
+</form>
+
 {% include "end.html" %}
