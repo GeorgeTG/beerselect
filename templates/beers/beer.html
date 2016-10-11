@@ -1,5 +1,13 @@
+{% include "../base.html" %}
+
 <h1>{{ object.name }}</h1>
 <p>Style: {{ object.style.name }} </p>
 <p>Category: {{ object.style.category.name }} </p>
-<p>Description: {{ object.description }} </p>
+<p>Brewery: <a href="{% url 'brewery_detail' object.brewery.id %}">{{ object.brewery.name }}</a></p>
+{% if object.descipt %}
+<p>Description: {{ object.descript }} </p>
+{% else %}
+<p>Desciption: -</p>
+{% endif %}
 
+{% include "../end.html" %}

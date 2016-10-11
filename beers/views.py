@@ -1,4 +1,9 @@
+import random
+
+from django.http import Http404
+from django.shortcuts import get_object_or_404
 from django.views import generic
+from django.core.urlresolvers import reverse
 
 from .models import Beer, Brewery
 
@@ -8,7 +13,8 @@ class IndexView(generic.base.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['total'] = Beer.objects.all().count()
+        context['beers_count'] = Beer.objects.all().count()
+        context['breweries_count'] = Brewery.objects.all().count()
         return context
 
 
@@ -20,3 +26,20 @@ class BeerDetailView(generic.detail.DetailView):
 class BreweryDetailView(generic.detail.DetailView):
     model = Brewery
     template_name = "beers/brewery.html"
+
+
+class BeerRandomView(generic.base.RedirectView):
+
+    permanent = False
+    query_string = True
+    pattern_name = 'beer_detail'
+
+    def get_redirect_url(self, *args, **kwargs):
+        beers = Beer.objects.filter(style__id=kwargs['style_id'])
+        try:
+            beer = random.choice(beers)
+        except IndexError:
+            raise Http404("No beers in this category")
+        return reverse('beer_detail', kwargs={'pk': beer.id})
+
+

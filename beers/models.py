@@ -10,7 +10,7 @@ class Brewery(models.Model):
     country = models.CharField(max_length=255)
     phone = models.CharField(max_length=55)
     website = models.CharField(max_length=255)
-    description = models.TextField()
+    descript = models.TextField()
 
     def __str__(self):
         return self.name
@@ -45,7 +45,7 @@ class Beer(models.Model):
     ibu = models.FloatField()
     srm = models.FloatField()
     upc = models.IntegerField()
-    description = models.TextField()
+    descript = models.TextField()
 
     def __str__(self):
         return self.name

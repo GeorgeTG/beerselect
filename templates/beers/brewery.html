@@ -1,0 +1,24 @@
+{% include "../base.html" %}
+<h1>{{ object.name }}</h1>
+<br/>
+<p>Address: {{object.address}}</p>
+<p>City: {{object.city}}</p>
+<p>Country: {{object.country}}</p>
+{% if object.state %}
+<p>State: {{object.state}}</p>
+{% endif %}
+{% if object.code %}
+<p>Code: {{object.code}}</p>
+{% endif %}
+<p>Phone: {{object.phone}}</p>
+{% if object.website %}
+<p>Website: <a href="{{object.website}}">{{object.website}}</a></p>
+{% else %}
+<p>Website: -</p>
+{% endif %}
+<br/>
+{% if object.descipt %}
+<p>Description: {{ object.descript }} </p>
+{% else %}
+<p>Desciption: -</p>
+{% endif %}

@@ -1,3 +1,8 @@
- Welcome to the BeerSelection app!!
+{% include "base.html" %}
 
- We have {{ total }} beers in our db!
+<h2>Welcome to the BeerSelection app</h2>
+<br/>
+<p>We have <b>{{ beers_count }}</b> beers in our db,
+  <br/>brewed at <b>{{ breweries_count }}</b> breweries all over the world!</p>
+
+{% include "end.html" %}
