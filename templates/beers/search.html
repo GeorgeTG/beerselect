@@ -1,0 +1,28 @@
+{% include "../base.html" %}
+
+{% if object_list %}
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Style</th>
+        <th>Category</th>
+        <th>Brewery</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for beer in object_list %}
+      <tr>
+        <td><a href="{% url 'beer_detail' beer.id %}">{{beer.name}}</a></td>
+        <td>{{beer.style.name}}</td>
+        <td>{{beer.style.category.name}}</td>
+        <td><a href="{% url 'brewery_detail' beer.brewery.id %}">{{beer.brewery.name}}</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+<p>No results found :(</p>
+{% endif %}
+
+{% include "../end.html" %}

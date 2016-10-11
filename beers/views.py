@@ -43,18 +43,12 @@ class BreweryDetailView(generic.detail.DetailView):
     template_name = "beers/brewery.html"
 
 
-class BeerRandomView(generic.base.RedirectView):
+class BeerSearchView(generic.list.ListView):
 
-    permanent = False
-    query_string = True
-    pattern_name = 'beer_detail'
+    model = Beer
+    template_name = "beers/search.html"
 
-    def get_redirect_url(self, *args, **kwargs):
-        beers = Beer.objects.filter(style__id=kwargs['style_id'])
-        try:
-            beer = random.choice(beers)
-        except IndexError:
-            raise Http404("No beers in this category")
-        return reverse('beer_detail', kwargs={'pk': beer.id})
-
+    def get_queryset(self):
+        query = self.request.GET.get('query')
+        return Beer.objects.filter(name__icontains=query)
 
