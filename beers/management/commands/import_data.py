@@ -16,29 +16,33 @@ class Command(BaseCommand):
         # categories
         BeerCategory.objects.all().delete()
         self.stdout.write('Importing categories...')
+        categories = dict()
         with (csv_path / 'categories.csv').open('r') as f:
             cat_reader = csv.DictReader(f, delimiter=',', quotechar='"')
             for row in cat_reader:
                 category = BeerCategory()
                 category.id = int(row['id'])
                 category.name = row['cat_name']
+                categories[category.id] = category
                 category.save()
 
         BeerStyle.objects.all().delete()
         # styles
         self.stdout.write('Importing styles...')
+        styles = dict()
         with (csv_path / 'styles.csv').open('r') as f:
             style_reader = csv.DictReader(f, delimiter=',', quotechar='"')
             for row in style_reader:
                 style = BeerStyle()
-                category = BeerCategory.objects.get(id=row['cat_id'])
                 style.id = int(row['id'])
                 style.name = row['style_name']
-                style.category = category
+                style.category = categories[int(row['cat_id'])]
+                styles[style.id] = style
                 style.save()
 
         Brewery.objects.all().delete()
         self.stdout.write('Importing breweries...')
+        breweries = dict()
         with (csv_path / 'breweries.csv').open('r') as f:
             brewery_reader = csv.DictReader(f, delimiter=',', quotechar='"')
             for row in brewery_reader:
@@ -52,26 +56,33 @@ class Command(BaseCommand):
                 brewery.country = row['country']
                 brewery.phone = row['phone']
                 brewery.website = row['website']
-                brewery.description = row['descript']
+                brewery.descript = row['descript']
+                breweries[brewery.id] = brewery
                 brewery.save()
+
+        # Hack for -1 style ids
+        styles[-1] = styles[141]  # Other Style
 
         Beer.objects.all().delete()
         self.stdout.write('Importing beers...')
         with (csv_path / 'beers.csv').open('r') as f:
             beer_reader = csv.DictReader(f, delimiter=',', quotechar='"')
             for row in beer_reader:
+                beer = Beer()
                 try:
-                    beer = Beer()
                     beer.id = int(row['id'])
-                    brewery = Brewery.objects.get(id=int(row['brewery_id']))
-                    beer.brewery = brewery
-                    beer.name = row['name']
-                    beer.abv = float(row['abv'])
-                    beer.ibu = float(row['ibu'])
-                    beer.srm = float(row['srm'])
-                    beer.upc = int(row['upc'])
-                    beer.description = row['descript']
-                    beer.save()
-                except:
-                    # just ignore errors, the database is huge anyway
+                except ValueError:  # Invalid data
                     continue
+#                    brewery = Brewery.objects.get(id=int(row['brewery_id']))
+#                    beer.brewery = brewery
+#                    style = BeerStyle.objects.get(id=int(row['style_id']))
+#                    beer.style = style
+                beer.style = styles[int(row['style_id'])]
+                beer.brewery = breweries[int(row['brewery_id'])]
+                beer.name = row['name']
+                beer.abv = float(row['abv'])
+                beer.ibu = float(row['ibu'])
+                beer.srm = float(row['srm'])
+                beer.upc = int(row['upc'])
+                beer.descript = row['descript']
+                beer.save()
