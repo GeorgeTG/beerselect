@@ -2,16 +2,17 @@
 
 <h2>Welcome to the BeerSelection app</h2>
 <br/>
-<p>We have <b>{{ beers_count }}</b> beers in our database, brewed at <b>{{ breweries_count }}</b> breweries all over the world!</p>
+<p>We have <b>{{ beers_count }}</b> beers of <b>{{ styles_count }}</b> different styles in our database, brewed at <b>{{ breweries_count }}</b> breweries all over the world!</p>
 <br/>
 <p>Select a beer style, to get a random beer:</p>
 <form action="#" method="POST" class="form">
   {% csrf_token %}
-  <select name="style_id">
+  <select name="style_id" class="form-control">
     {% for entry in styles %}
     <option value="{{ entry.id }}">{{ entry.name }}</option>
     {% endfor %}
   </select>
+  <br/>
   <button type="submit" class="btn btn-primary">Go!</button>
 </form>
 

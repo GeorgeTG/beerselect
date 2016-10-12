@@ -29,6 +29,7 @@ class IndexView(generic.base.TemplateView):
             if style.beer_set.count() > 0:
                 nonzero.append(style)
         context['styles'] = nonzero
+        context['styles_count'] = len(nonzero)
 
         return context
 
