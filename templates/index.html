@@ -2,10 +2,9 @@
 
 <h2>Welcome to the BeerSelection app</h2>
 <br/>
-<p>We have <b>{{ beers_count }}</b> beers in our db,
-  <br/>brewed at <b>{{ breweries_count }}</b> breweries all over the world!</p>
-
-<p>Select a beer style, to get a random beer!</p>
+<p>We have <b>{{ beers_count }}</b> beers in our database, brewed at <b>{{ breweries_count }}</b> breweries all over the world!</p>
+<br/>
+<p>Select a beer style, to get a random beer:</p>
 <form action="#" method="POST" class="form">
   {% csrf_token %}
   <select name="style_id">
