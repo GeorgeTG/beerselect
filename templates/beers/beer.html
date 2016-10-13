@@ -1,13 +1,21 @@
 {% include "../base.html" %}
 
 <h1>{{ object.name }}</h1>
+<br/>
 <p>Style: {{ object.style.name }} </p>
+{% if object.abv %}
+<p>Alcohol by Volume: {{object.abv }}</p>
+{% endif %}
+{% if object.ibu %}
+<p>International Bitterness Units: {{object.ibu}}</p>
+{% endif %}
 <p>Category: {{ object.style.category.name }} </p>
 <p>Brewery: <a href="{% url 'brewery_detail' object.brewery.id %}">{{ object.brewery.name }}</a></p>
 {% if object.descipt %}
+{% if object.upc %}
+<p>Universal Product Code: {{ object.upc }}</p>
+{% endif %}
 <p>Description: {{ object.descript }} </p>
-{% else %}
-<p>Desciption: -</p>
 {% endif %}
 
 {% include "../end.html" %}
