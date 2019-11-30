@@ -12,12 +12,12 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 
-from .secret import KEY
+#from .secret import KEY
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = KEY
+SECRET_KEY = 'v80w3e7kdun%nm=y@lo&pv@-593(0x#ua_+u+-_xdex8l(u#48'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/

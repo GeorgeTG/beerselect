@@ -3,14 +3,14 @@ from django.db import models
 
 class Brewery(models.Model):
     name = models.CharField(max_length=255)
-    address = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
-    state = models.CharField(max_length=255)
-    code = models.CharField(max_length=25)
+    #address = models.CharField(max_length=255)
+    #city = models.CharField(max_length=255)
+    #state = models.CharField(max_length=255)
+    #code = models.CharField(max_length=25)
     country = models.CharField(max_length=255)
-    phone = models.CharField(max_length=55)
-    website = models.CharField(max_length=255)
-    descript = models.TextField()
+    #phone = models.CharField(max_length=55)
+    #website = models.CharField(max_length=255)
+    #descript = models.TextField()
 
     def __str__(self):
         return self.name
@@ -42,10 +42,10 @@ class Beer(models.Model):
     name = models.CharField(max_length=255)
     style = models.ForeignKey(BeerStyle, on_delete=models.CASCADE, null=True)
     abv = models.FloatField()
-    ibu = models.FloatField()
-    srm = models.FloatField()
-    upc = models.IntegerField()
-    descript = models.TextField()
+    #ibu = models.FloatField()
+    #srm = models.FloatField()
+    #upc = models.IntegerField()
+    #descript = models.TextField()
 
     def __str__(self):
         return self.name

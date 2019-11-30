@@ -3,7 +3,7 @@ import random
 from django.http import Http404
 from django.shortcuts import redirect
 from django.views import generic
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from .models import Beer, Brewery, BeerStyle
 
